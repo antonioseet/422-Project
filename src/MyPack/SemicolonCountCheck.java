@@ -39,7 +39,7 @@ public class SemicolonCountCheck extends AbstractCheck {
 	}
 	
 	private String CatchMsg() {
-		return "You've used a total of " + this.counter + " semicolons";
+		return "You've used a total of: " + this.counter + " semicolons";
 	}
  
 }
