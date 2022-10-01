@@ -2,7 +2,7 @@ package MyPack;
  
 import com.puppycrawl.tools.checkstyle.api.*;
  
-public class SemicolonCountCheck2 extends AbstractCheck {
+public class ACheck extends AbstractCheck {
  
     private int counter = 0;
     
@@ -18,7 +18,8 @@ public class SemicolonCountCheck2 extends AbstractCheck {
     
     @Override
     public int[] getDefaultTokens() {
-        return new int[] {TokenTypes.SEMI};
+        return new int[] {	TokenTypes.SINGLE_LINE_COMMENT,
+        					TokenTypes.BLOCK_COMMENT_BEGIN};
     }
  
     @Override
@@ -28,18 +29,25 @@ public class SemicolonCountCheck2 extends AbstractCheck {
 
 	@Override
 	public int[] getAcceptableTokens() {
-		// TODO Auto-generated method stub
-		return new int[] {TokenTypes.SEMI}; 
+		// Auto-generated method stub
+		return new int[] {	TokenTypes.SINGLE_LINE_COMMENT,
+							TokenTypes.BLOCK_COMMENT_BEGIN}; 
 	}
 
 	@Override
 	public int[] getRequiredTokens() {
-		// TODO Auto-generated method stub
+		// Auto-generated method stub
 		return new int[0];
 	}
 	
+	@Override
+	public boolean isCommentNodesRequired() {
+		return true;
+	}
+	
+	// Returns the total number of comments in the program's
 	private String CatchMsg() {
-		return "You've used a total of: " + 2 + " semicolons";
+		return "The Halstead Length is: X";
 	}
  
 }

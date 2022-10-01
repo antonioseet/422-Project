@@ -16,9 +16,14 @@
             <description>%SemicolonCount.desc</description>
         </rule-metadata>
         
-         <rule-metadata name="%SemicolonCount2.name" internal-name="SemicolonCount69" parent="TreeWalker">
-            <alternative-name internal-name="MyPack.SemicolonCountCheck2" />
-            <description>%SemicolonCount2.desc</description>
+         <rule-metadata name="%BCheck.name" internal-name="BCheck" parent="TreeWalker">
+            <alternative-name internal-name="MyPack.BCheck" />
+            <description>%BCheck.desc</description>
+        </rule-metadata>
+        
+        <rule-metadata name="%ACheck.name" internal-name="ACheck" parent="TreeWalker">
+            <alternative-name internal-name="MyPack.ACheck" />
+            <description>%ACheck.desc</description>
         </rule-metadata>
         
     </rule-group-metadata>
