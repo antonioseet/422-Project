@@ -26,5 +26,10 @@
             <description>%ACheck.desc</description>
         </rule-metadata>
         
+        <rule-metadata name="%MethodLimitCheck.name" internal-name="MethodLimitCheck" parent="TreeWalker">
+            <alternative-name internal-name="MyPack.MethodLimitCheck" />
+            <description>%MethodLimitCheck.desc</description>
+        </rule-metadata>
+        
     </rule-group-metadata>
 </checkstyle-metadata>

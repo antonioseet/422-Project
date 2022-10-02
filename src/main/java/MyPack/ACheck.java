@@ -18,8 +18,10 @@ public class ACheck extends AbstractCheck {
     
     @Override
     public int[] getDefaultTokens() {
-        return new int[] {	TokenTypes.SINGLE_LINE_COMMENT,
-        					TokenTypes.BLOCK_COMMENT_BEGIN};
+        return new int[] {	
+        		TokenTypes.CHAR_LITERAL,
+        		TokenTypes.NUM_INT,
+        		TokenTypes.NUM_LONG};
     }
  
     @Override
