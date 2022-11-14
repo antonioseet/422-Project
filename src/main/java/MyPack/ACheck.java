@@ -132,7 +132,11 @@ public class ACheck extends AbstractCheck {
 	
 	// Returns the total number of comments in the program's
 	private String CatchMsg() {
-		return "The Halstead Length is: " + this.counter;
+		return "The Halstead Length is: " + getCounter();
+	}
+	
+	private int getCounter() {
+		return this.counter;
 	}
  
 }
