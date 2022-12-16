@@ -4,32 +4,33 @@ import org.junit.jupiter.api.Test;
 
 import com.puppycrawl.tools.checkstyle.DetailAstImpl;
 
-import MyPack.ACheck;
-import MyPack.HalsteadArrayMaster;
+import MyPack.CommentLineCountCheck;
 
 import static org.mockito.Mockito.spy;
 import static org.mockito.Mockito.when;
 import static org.mockito.Mockito.doNothing;
 import static org.mockito.Mockito.mock;
 
-class HalsteadLengthTest {
+class CommentLineCountCheckTest {
 
 	
 	@Test
 	void testBeginTree() {
-		DetailAstImpl ast = new DetailAstImpl();
-		ACheck a = new ACheck();
-		a.beginTree(ast);
+		CommentLineCountCheck a = new CommentLineCountCheck();
+		a.beginTree(null);
 		assertEquals(expectedString(0), a.CatchMsg());
 	}
 	
 	@Test
 	void testFinishTree() {
-		ACheck obj = new ACheck();
-		ACheck checkMock = mock(ACheck.class);
+		CommentLineCountCheck obj = new CommentLineCountCheck();
+		CommentLineCountCheck checkMock = mock(CommentLineCountCheck.class);
 		
 		doNothing().when(checkMock).log(null, expectedString(0));
 		
+		
+		DetailAstImpl ast = new DetailAstImpl();
+		ast.setType(2);
 		checkMock.finishTree(null);
 		
 		String expected = expectedString(0);
@@ -40,34 +41,32 @@ class HalsteadLengthTest {
 	
 	@Test
 	void testGetDefaultTokens() {
-		ACheck a = new ACheck();
-		HalsteadArrayMaster tokens = new HalsteadArrayMaster();
-		assertEquals(a.getDefaultTokens().length, tokens.getMasterList().length);
+		CommentLineCountCheck a = new CommentLineCountCheck();
+		assertEquals(3, a.getDefaultTokens().length);
 	}
 	
 	@Test
 	void testVisitToken() {
-		ACheck a = new ACheck();
+		CommentLineCountCheck a = new CommentLineCountCheck();
 		a.visitToken(null);
 		assertEquals(expectedString(1), a.CatchMsg());
 	}
 	
 	@Test
 	void testGetAcceptableTokens() {
-		ACheck a = new ACheck();
-		HalsteadArrayMaster tokens = new HalsteadArrayMaster();
-		assertEquals(a.getAcceptableTokens().length, tokens.getMasterList().length);
+		CommentLineCountCheck a = new CommentLineCountCheck();
+		assertEquals(2, a.getAcceptableTokens().length);
 	}
 	
 	@Test
 	void testGetRequiredTokens() {
-		ACheck a = new ACheck();
+		CommentLineCountCheck a = new CommentLineCountCheck();
 		assertEquals(a.getRequiredTokens().length, 0);
 	}
 	
 	@Test
 	void testIsCommentNodesRequired() {
-		ACheck a = new ACheck();
+		CommentLineCountCheck a = new CommentLineCountCheck();
 		assertTrue(a.isCommentNodesRequired());
 	}
 
@@ -75,9 +74,9 @@ class HalsteadLengthTest {
 	@Test
 	void testCatchMsg() {
 		
-		ACheck HalLength = new ACheck();
+		CommentLineCountCheck HalLength = new CommentLineCountCheck();
 		
-		ACheck spy = spy(HalLength);
+		CommentLineCountCheck spy = spy(HalLength);
 		when(spy.getCounter()).thenReturn(5);
 		String expected = expectedString(5);
 		String actual = spy.CatchMsg();
@@ -88,12 +87,12 @@ class HalsteadLengthTest {
 	
 	@Test
 	void testGetCounter() {
-		ACheck obj = new ACheck();
+		CommentLineCountCheck obj = new CommentLineCountCheck();
 		assertEquals(0, obj.getCounter());
 	}
 	
 	public String expectedString(int x) {
-		return "The Halstead Length is: " + x;
+		return "You've used a total of: " + x + " comment line(s)";
 	}
 
 }

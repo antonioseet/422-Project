@@ -5,24 +5,15 @@ import java.util.HashSet; // Import the HashSet class
  
 public class OperatorCountCheck extends AbstractCheck {
  
-    private HashSet<Integer> operandTokenSet;
-    private int operandCounter;
+    private HashSet<Integer> operandTokenSet = new HashSet<Integer>();
+    private int operatorCounter = 0;
+    
+    private HalsteadArrayMaster ar = new HalsteadArrayMaster();
     
     @Override
     public void beginTree(DetailAST rootAST) {
-    	this.operandTokenSet = new HashSet<Integer>();
-    	this.operandCounter = 0;
-    	
-		int[] operandArray = {	
-        		TokenTypes.CHAR_LITERAL,
-        		TokenTypes.NUM_INT,
-        		TokenTypes.NUM_LONG,
-        		TokenTypes.NUM_FLOAT,
-        		TokenTypes.NUM_DOUBLE,
-        		TokenTypes.STRING_LITERAL,
-        }; 
 		
-		for(int n : operandArray) {
+		for(int n : this.ar.getOperands()) {
 			operandTokenSet.add(n);
 		}
 		
@@ -35,22 +26,18 @@ public class OperatorCountCheck extends AbstractCheck {
     
     @Override
     public int[] getDefaultTokens() {
-
-		return this.HalsteadTokenList();
+		return this.ar.getOperands();
     }
  
     // check to see which tokens are found and if we find a match to anything in our list we can add it to the set.
     @Override
     public void visitToken(DetailAST aAST) {
-    	if(!operandTokenSet.contains(aAST.getType())){
-    		this.operandCounter++;
-    	}
+    	this.operatorCounter++;
     }
 
 	@Override
 	public int[] getAcceptableTokens() {
-		// Auto-generated method stub
-		return this.HalsteadTokenList();
+		return this.ar.getOperands();
 	}
 
 	@Override
@@ -65,61 +52,12 @@ public class OperatorCountCheck extends AbstractCheck {
 	}
 	
 	// Returns the total number of comments in the program's
-	private String CatchMsg() {
-		return "The Halstead Vocabulary is: " + getCounter();
+	public String CatchMsg() {
+		return "Operator Count: " + getCounter();
 	}
 	
-	private int getCounter() {
-		return this.operandCounter;
-	}
-	
-	private int[] HalsteadTokenList() {
-		int[] tokenArray = {	
-        		TokenTypes.CHAR_LITERAL,
-        		TokenTypes.NUM_INT,
-        		TokenTypes.NUM_LONG,
-        		TokenTypes.NUM_FLOAT,
-        		TokenTypes.NUM_DOUBLE,
-        		TokenTypes.STRING_LITERAL,
-        		TokenTypes.ASSIGN,
-        		TokenTypes.DIV_ASSIGN,
-        		TokenTypes.DIV,
-        		TokenTypes.DOT,
-        		TokenTypes.EQUAL,
-        		TokenTypes.GE,
-        		TokenTypes.INC,
-        		TokenTypes.INDEX_OP,
-        		TokenTypes.LAND,
-        		TokenTypes.LE,
-        		TokenTypes.LITERAL_INSTANCEOF,
-        		TokenTypes.LNOT,
-        		TokenTypes.LOR,
-        		TokenTypes.LT,
-        		TokenTypes.MINUS,
-        		TokenTypes.MOD,
-        		TokenTypes.MOD_ASSIGN,
-        		TokenTypes.NOT_EQUAL,
-        		TokenTypes.PLUS,
-        		TokenTypes.PLUS_ASSIGN,
-        		TokenTypes.POST_DEC,
-        		TokenTypes.POST_INC,
-        		TokenTypes.QUESTION,
-        		TokenTypes.STAR,
-        		TokenTypes.STAR_ASSIGN,
-        		TokenTypes.UNARY_MINUS,
-        		TokenTypes.UNARY_PLUS,
-        		TokenTypes.RBRACK,
-        		TokenTypes.RCURLY,
-        		TokenTypes.VARIABLE_DEF,
-        		TokenTypes.METHOD_REF,
-        		TokenTypes.BNOT,
-        		TokenTypes.BOR,
-        		TokenTypes.COLON,
-        		TokenTypes.COMMA,
-        		TokenTypes.GT
-        }; 
-	
-		return tokenArray;
+	public int getCounter() {
+		return this.operatorCounter;
 	}
  
 }

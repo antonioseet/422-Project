@@ -4,32 +4,33 @@ import org.junit.jupiter.api.Test;
 
 import com.puppycrawl.tools.checkstyle.DetailAstImpl;
 
-import MyPack.ACheck;
-import MyPack.HalsteadArrayMaster;
+import MyPack.OperatorCountCheck;
 
 import static org.mockito.Mockito.spy;
 import static org.mockito.Mockito.when;
 import static org.mockito.Mockito.doNothing;
 import static org.mockito.Mockito.mock;
 
-class HalsteadLengthTest {
+class OperatorCountCheckTest {
 
 	
 	@Test
 	void testBeginTree() {
-		DetailAstImpl ast = new DetailAstImpl();
-		ACheck a = new ACheck();
-		a.beginTree(ast);
+		OperatorCountCheck a = new OperatorCountCheck();
+		a.beginTree(null);
 		assertEquals(expectedString(0), a.CatchMsg());
 	}
 	
 	@Test
 	void testFinishTree() {
-		ACheck obj = new ACheck();
-		ACheck checkMock = mock(ACheck.class);
+		OperatorCountCheck obj = new OperatorCountCheck();
+		OperatorCountCheck checkMock = mock(OperatorCountCheck.class);
 		
 		doNothing().when(checkMock).log(null, expectedString(0));
 		
+		
+		DetailAstImpl ast = new DetailAstImpl();
+		ast.setType(2);
 		checkMock.finishTree(null);
 		
 		String expected = expectedString(0);
@@ -40,34 +41,32 @@ class HalsteadLengthTest {
 	
 	@Test
 	void testGetDefaultTokens() {
-		ACheck a = new ACheck();
-		HalsteadArrayMaster tokens = new HalsteadArrayMaster();
-		assertEquals(a.getDefaultTokens().length, tokens.getMasterList().length);
+		OperatorCountCheck a = new OperatorCountCheck();
+		assertEquals(11, a.getDefaultTokens().length);
 	}
 	
 	@Test
 	void testVisitToken() {
-		ACheck a = new ACheck();
+		OperatorCountCheck a = new OperatorCountCheck();
 		a.visitToken(null);
 		assertEquals(expectedString(1), a.CatchMsg());
 	}
 	
 	@Test
 	void testGetAcceptableTokens() {
-		ACheck a = new ACheck();
-		HalsteadArrayMaster tokens = new HalsteadArrayMaster();
-		assertEquals(a.getAcceptableTokens().length, tokens.getMasterList().length);
+		OperatorCountCheck a = new OperatorCountCheck();
+		assertEquals(11, a.getAcceptableTokens().length);
 	}
 	
 	@Test
 	void testGetRequiredTokens() {
-		ACheck a = new ACheck();
+		OperatorCountCheck a = new OperatorCountCheck();
 		assertEquals(a.getRequiredTokens().length, 0);
 	}
 	
 	@Test
 	void testIsCommentNodesRequired() {
-		ACheck a = new ACheck();
+		OperatorCountCheck a = new OperatorCountCheck();
 		assertTrue(a.isCommentNodesRequired());
 	}
 
@@ -75,9 +74,9 @@ class HalsteadLengthTest {
 	@Test
 	void testCatchMsg() {
 		
-		ACheck HalLength = new ACheck();
+		OperatorCountCheck HalLength = new OperatorCountCheck();
 		
-		ACheck spy = spy(HalLength);
+		OperatorCountCheck spy = spy(HalLength);
 		when(spy.getCounter()).thenReturn(5);
 		String expected = expectedString(5);
 		String actual = spy.CatchMsg();
@@ -88,12 +87,12 @@ class HalsteadLengthTest {
 	
 	@Test
 	void testGetCounter() {
-		ACheck obj = new ACheck();
+		OperatorCountCheck obj = new OperatorCountCheck();
 		assertEquals(0, obj.getCounter());
 	}
 	
 	public String expectedString(int x) {
-		return "The Halstead Length is: " + x;
+		return "Operator Count: " + x;
 	}
 
 }

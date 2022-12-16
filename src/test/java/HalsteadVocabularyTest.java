@@ -3,8 +3,9 @@ import static org.junit.jupiter.api.Assertions.*;
 import org.junit.jupiter.api.Test;
 
 import com.puppycrawl.tools.checkstyle.DetailAstImpl;
+import com.puppycrawl.tools.checkstyle.api.DetailAST;
 
-import MyPack.ACheck;
+import MyPack.HalsteadVocabularyCheck;
 import MyPack.HalsteadArrayMaster;
 
 import static org.mockito.Mockito.spy;
@@ -12,21 +13,20 @@ import static org.mockito.Mockito.when;
 import static org.mockito.Mockito.doNothing;
 import static org.mockito.Mockito.mock;
 
-class HalsteadLengthTest {
+class HalsteadVocabularyTest {
 
 	
 	@Test
 	void testBeginTree() {
-		DetailAstImpl ast = new DetailAstImpl();
-		ACheck a = new ACheck();
-		a.beginTree(ast);
+		HalsteadVocabularyCheck a = new HalsteadVocabularyCheck();
+		a.beginTree(null);
 		assertEquals(expectedString(0), a.CatchMsg());
 	}
 	
 	@Test
 	void testFinishTree() {
-		ACheck obj = new ACheck();
-		ACheck checkMock = mock(ACheck.class);
+		HalsteadVocabularyCheck obj = new HalsteadVocabularyCheck();
+		HalsteadVocabularyCheck checkMock = mock(HalsteadVocabularyCheck.class);
 		
 		doNothing().when(checkMock).log(null, expectedString(0));
 		
@@ -40,34 +40,34 @@ class HalsteadLengthTest {
 	
 	@Test
 	void testGetDefaultTokens() {
-		ACheck a = new ACheck();
+		HalsteadVocabularyCheck a = new HalsteadVocabularyCheck();
 		HalsteadArrayMaster tokens = new HalsteadArrayMaster();
 		assertEquals(a.getDefaultTokens().length, tokens.getMasterList().length);
 	}
 	
 	@Test
 	void testVisitToken() {
-		ACheck a = new ACheck();
-		a.visitToken(null);
-		assertEquals(expectedString(1), a.CatchMsg());
+		HalsteadVocabularyCheck obj = new HalsteadVocabularyCheck();
+		obj.visitToken(new DetailAstImpl());
+		assertEquals(expectedString(1), obj.CatchMsg());
 	}
 	
 	@Test
 	void testGetAcceptableTokens() {
-		ACheck a = new ACheck();
+		HalsteadVocabularyCheck a = new HalsteadVocabularyCheck();
 		HalsteadArrayMaster tokens = new HalsteadArrayMaster();
 		assertEquals(a.getAcceptableTokens().length, tokens.getMasterList().length);
 	}
 	
 	@Test
 	void testGetRequiredTokens() {
-		ACheck a = new ACheck();
+		HalsteadVocabularyCheck a = new HalsteadVocabularyCheck();
 		assertEquals(a.getRequiredTokens().length, 0);
 	}
 	
 	@Test
 	void testIsCommentNodesRequired() {
-		ACheck a = new ACheck();
+		HalsteadVocabularyCheck a = new HalsteadVocabularyCheck();
 		assertTrue(a.isCommentNodesRequired());
 	}
 
@@ -75,9 +75,9 @@ class HalsteadLengthTest {
 	@Test
 	void testCatchMsg() {
 		
-		ACheck HalLength = new ACheck();
+		HalsteadVocabularyCheck HalLength = new HalsteadVocabularyCheck();
 		
-		ACheck spy = spy(HalLength);
+		HalsteadVocabularyCheck spy = spy(HalLength);
 		when(spy.getCounter()).thenReturn(5);
 		String expected = expectedString(5);
 		String actual = spy.CatchMsg();
@@ -88,12 +88,12 @@ class HalsteadLengthTest {
 	
 	@Test
 	void testGetCounter() {
-		ACheck obj = new ACheck();
+		HalsteadVocabularyCheck obj = new HalsteadVocabularyCheck();
 		assertEquals(0, obj.getCounter());
 	}
 	
 	public String expectedString(int x) {
-		return "The Halstead Length is: " + x;
+		return "The Halstead Vocabulary is: " + x;
 	}
 
 }

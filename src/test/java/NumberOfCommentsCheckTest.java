@@ -4,7 +4,7 @@ import org.junit.jupiter.api.Test;
 
 import com.puppycrawl.tools.checkstyle.DetailAstImpl;
 
-import MyPack.ACheck;
+import MyPack.BCheck;
 import MyPack.HalsteadArrayMaster;
 
 import static org.mockito.Mockito.spy;
@@ -12,21 +12,20 @@ import static org.mockito.Mockito.when;
 import static org.mockito.Mockito.doNothing;
 import static org.mockito.Mockito.mock;
 
-class HalsteadLengthTest {
+class NumberOfCommentsCheckTest {
 
 	
 	@Test
 	void testBeginTree() {
-		DetailAstImpl ast = new DetailAstImpl();
-		ACheck a = new ACheck();
-		a.beginTree(ast);
+		BCheck a = new BCheck();
+		a.beginTree(null);
 		assertEquals(expectedString(0), a.CatchMsg());
 	}
 	
 	@Test
 	void testFinishTree() {
-		ACheck obj = new ACheck();
-		ACheck checkMock = mock(ACheck.class);
+		BCheck obj = new BCheck();
+		BCheck checkMock = mock(BCheck.class);
 		
 		doNothing().when(checkMock).log(null, expectedString(0));
 		
@@ -40,34 +39,32 @@ class HalsteadLengthTest {
 	
 	@Test
 	void testGetDefaultTokens() {
-		ACheck a = new ACheck();
-		HalsteadArrayMaster tokens = new HalsteadArrayMaster();
-		assertEquals(a.getDefaultTokens().length, tokens.getMasterList().length);
+		BCheck a = new BCheck();
+		assertEquals(2, a.getDefaultTokens().length);
 	}
 	
 	@Test
 	void testVisitToken() {
-		ACheck a = new ACheck();
+		BCheck a = new BCheck();
 		a.visitToken(null);
 		assertEquals(expectedString(1), a.CatchMsg());
 	}
 	
 	@Test
 	void testGetAcceptableTokens() {
-		ACheck a = new ACheck();
-		HalsteadArrayMaster tokens = new HalsteadArrayMaster();
-		assertEquals(a.getAcceptableTokens().length, tokens.getMasterList().length);
+		BCheck a = new BCheck();
+		assertEquals(2, a.getAcceptableTokens().length);
 	}
 	
 	@Test
 	void testGetRequiredTokens() {
-		ACheck a = new ACheck();
+		BCheck a = new BCheck();
 		assertEquals(a.getRequiredTokens().length, 0);
 	}
 	
 	@Test
 	void testIsCommentNodesRequired() {
-		ACheck a = new ACheck();
+		BCheck a = new BCheck();
 		assertTrue(a.isCommentNodesRequired());
 	}
 
@@ -75,9 +72,9 @@ class HalsteadLengthTest {
 	@Test
 	void testCatchMsg() {
 		
-		ACheck HalLength = new ACheck();
+		BCheck HalLength = new BCheck();
 		
-		ACheck spy = spy(HalLength);
+		BCheck spy = spy(HalLength);
 		when(spy.getCounter()).thenReturn(5);
 		String expected = expectedString(5);
 		String actual = spy.CatchMsg();
@@ -88,12 +85,12 @@ class HalsteadLengthTest {
 	
 	@Test
 	void testGetCounter() {
-		ACheck obj = new ACheck();
+		BCheck obj = new BCheck();
 		assertEquals(0, obj.getCounter());
 	}
 	
 	public String expectedString(int x) {
-		return "The Halstead Length is: " + x;
+		return "You've used a total of: " + x + " comment(s)";
 	}
 
 }

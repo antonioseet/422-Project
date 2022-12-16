@@ -2,6 +2,7 @@ package MyPack;
  
 import com.puppycrawl.tools.checkstyle.api.*;
  
+// Halstead Length
 public class ACheck extends AbstractCheck {
  
     private int counter = 0;
@@ -18,50 +19,8 @@ public class ACheck extends AbstractCheck {
     
     @Override
     public int[] getDefaultTokens() {
-        return new int[] {	
-        		TokenTypes.CHAR_LITERAL,
-        		TokenTypes.NUM_INT,
-        		TokenTypes.NUM_LONG,
-        		TokenTypes.NUM_FLOAT,
-        		TokenTypes.NUM_DOUBLE,
-        		TokenTypes.STRING_LITERAL,
-        		TokenTypes.ASSIGN,
-        		TokenTypes.DIV_ASSIGN,
-        		TokenTypes.DIV,
-        		TokenTypes.DOT,
-        		TokenTypes.EQUAL,
-        		TokenTypes.GE,
-        		TokenTypes.INC,
-        		TokenTypes.INDEX_OP,
-        		TokenTypes.LAND,
-        		TokenTypes.LE,
-        		TokenTypes.LITERAL_INSTANCEOF,
-        		TokenTypes.LNOT,
-        		TokenTypes.LOR,
-        		TokenTypes.LT,
-        		TokenTypes.MINUS,
-        		TokenTypes.MOD,
-        		TokenTypes.MOD_ASSIGN,
-        		TokenTypes.NOT_EQUAL,
-        		TokenTypes.PLUS,
-        		TokenTypes.PLUS_ASSIGN,
-        		TokenTypes.POST_DEC,
-        		TokenTypes.POST_INC,
-        		TokenTypes.QUESTION,
-        		TokenTypes.STAR,
-        		TokenTypes.STAR_ASSIGN,
-        		TokenTypes.UNARY_MINUS,
-        		TokenTypes.UNARY_PLUS,
-        		TokenTypes.RBRACK,
-        		TokenTypes.RCURLY,
-        		TokenTypes.VARIABLE_DEF,
-        		TokenTypes.METHOD_REF,
-        		TokenTypes.BNOT,
-        		TokenTypes.BOR,
-        		TokenTypes.COLON,
-        		TokenTypes.COMMA,
-        		TokenTypes.GT
-        		};
+		HalsteadArrayMaster ml = new HalsteadArrayMaster();
+		return ml.getMasterList();
     }
  
     @Override
@@ -71,52 +30,8 @@ public class ACheck extends AbstractCheck {
 
 	@Override
 	public int[] getAcceptableTokens() {
-		// Auto-generated method stub
-		return new int[] {	
-
-        		TokenTypes.CHAR_LITERAL,
-        		TokenTypes.NUM_INT,
-        		TokenTypes.NUM_LONG,
-        		TokenTypes.NUM_FLOAT,
-        		TokenTypes.NUM_DOUBLE,
-        		TokenTypes.STRING_LITERAL,
-        		TokenTypes.ASSIGN,
-        		TokenTypes.DIV_ASSIGN,
-        		TokenTypes.DIV,
-        		TokenTypes.DOT,
-        		TokenTypes.EQUAL,
-        		TokenTypes.GE,
-        		TokenTypes.INC,
-        		TokenTypes.INDEX_OP,
-        		TokenTypes.LAND,
-        		TokenTypes.LE,
-        		TokenTypes.LITERAL_INSTANCEOF,
-        		TokenTypes.LNOT,
-        		TokenTypes.LOR,
-        		TokenTypes.LT,
-        		TokenTypes.MINUS,
-        		TokenTypes.MOD,
-        		TokenTypes.MOD_ASSIGN,
-        		TokenTypes.NOT_EQUAL,
-        		TokenTypes.PLUS,
-        		TokenTypes.PLUS_ASSIGN,
-        		TokenTypes.POST_DEC,
-        		TokenTypes.POST_INC,
-        		TokenTypes.QUESTION,
-        		TokenTypes.STAR,
-        		TokenTypes.STAR_ASSIGN,
-        		TokenTypes.UNARY_MINUS,
-        		TokenTypes.UNARY_PLUS,
-        		TokenTypes.RBRACK,
-        		TokenTypes.RCURLY,
-        		TokenTypes.VARIABLE_DEF,
-        		TokenTypes.METHOD_REF,
-        		TokenTypes.BNOT,
-        		TokenTypes.BOR,
-        		TokenTypes.COLON,
-        		TokenTypes.COMMA,
-        		TokenTypes.GT
-        		}; 
+		HalsteadArrayMaster ml = new HalsteadArrayMaster();
+		return ml.getMasterList();
 	}
 
 	@Override
@@ -131,11 +46,11 @@ public class ACheck extends AbstractCheck {
 	}
 	
 	// Returns the total number of comments in the program's
-	private String CatchMsg() {
+	public String CatchMsg() {
 		return "The Halstead Length is: " + getCounter();
 	}
 	
-	private int getCounter() {
+	public int getCounter() {
 		return this.counter;
 	}
  

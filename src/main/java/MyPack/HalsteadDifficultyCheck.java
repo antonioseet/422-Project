@@ -5,12 +5,17 @@ import java.util.HashSet; // Import the HashSet class
  
 public class HalsteadDifficultyCheck extends AbstractCheck {
  
-    private HashSet<Integer> operandTokenSet;
+	//Unique operators and operands
+	private HashSet<Integer> uniqueOperands= new HashSet<Integer>();
+	private HashSet<Integer> uniqueOperators= new HashSet<Integer>();
+    private HashSet<Integer> operandTokenSet= new HashSet<Integer>(); // To check for increasing operand and operator (!operand) counts.
+    private int operandCounter;
     
     @Override
     public void beginTree(DetailAST rootAST) {
-    	this.operandTokenSet = new HashSet<Integer>();
+    	this.operandCounter = 0;
     	
+    	// operand set, EVERYTHING ELSE IS AN OPERATOR
 		int[] operandArray = {	
         		TokenTypes.CHAR_LITERAL,
         		TokenTypes.NUM_INT,
@@ -18,14 +23,17 @@ public class HalsteadDifficultyCheck extends AbstractCheck {
         		TokenTypes.NUM_FLOAT,
         		TokenTypes.NUM_DOUBLE,
         		TokenTypes.STRING_LITERAL,
+        		TokenTypes.PATTERN_VARIABLE_DEF,
+        		TokenTypes.PARAMETER_DEF,
+        		TokenTypes.PARAMETERS
         }; 
 		
 		for(int n : operandArray) {
-			operandTokenSet.add(n);
+			this.operandTokenSet.add(n);
 		}
 		
     }
-    
+
     @Override
     public void finishTree(DetailAST rootAST) {
     	log(rootAST, CatchMsg());
@@ -34,21 +42,25 @@ public class HalsteadDifficultyCheck extends AbstractCheck {
     @Override
     public int[] getDefaultTokens() {
 
-		return this.HalsteadTokenList();
+		HalsteadArrayMaster ml = new HalsteadArrayMaster();
+		return ml.getMasterList();
     }
  
     // check to see which tokens are found and if we find a match to anything in our list we can add it to the set.
     @Override
     public void visitToken(DetailAST aAST) {
     	if(operandTokenSet.contains(aAST.getType())){
-    		
+    		this.operandCounter++;
+    		this.uniqueOperands.add(aAST.getType());
+    	}else{
+    		this.uniqueOperators.add(aAST.getType());
     	}
     }
 
 	@Override
 	public int[] getAcceptableTokens() {
-		// Auto-generated method stub
-		return this.HalsteadTokenList();
+		HalsteadArrayMaster ml = new HalsteadArrayMaster();
+		return ml.getMasterList();
 	}
 
 	@Override
@@ -63,61 +75,19 @@ public class HalsteadDifficultyCheck extends AbstractCheck {
 	}
 	
 	// Returns the total number of comments in the program's
-	private String CatchMsg() {
-		return "The Halstead Vocabulary is: " + getCounter();
+	public String CatchMsg() {
+		return "The Halstead Difficulty is: " + getDifficulty();
 	}
 	
-	private int getCounter() {
-		return this.usedTokenSet.size();
+	public double getDifficulty() {
+		
+		if(this.uniqueOperands.size() == 0) {
+			return 0;
+		}
+		
+		double result = (this.uniqueOperators.size() / 2 * this.operandCounter) / this.uniqueOperands.size();
+		
+		return result;
 	}
-	
-	private int[] HalsteadTokenList() {
-		int[] tokenArray = {	
-        		TokenTypes.CHAR_LITERAL,
-        		TokenTypes.NUM_INT,
-        		TokenTypes.NUM_LONG,
-        		TokenTypes.NUM_FLOAT,
-        		TokenTypes.NUM_DOUBLE,
-        		TokenTypes.STRING_LITERAL,
-        		TokenTypes.ASSIGN,
-        		TokenTypes.DIV_ASSIGN,
-        		TokenTypes.DIV,
-        		TokenTypes.DOT,
-        		TokenTypes.EQUAL,
-        		TokenTypes.GE,
-        		TokenTypes.INC,
-        		TokenTypes.INDEX_OP,
-        		TokenTypes.LAND,
-        		TokenTypes.LE,
-        		TokenTypes.LITERAL_INSTANCEOF,
-        		TokenTypes.LNOT,
-        		TokenTypes.LOR,
-        		TokenTypes.LT,
-        		TokenTypes.MINUS,
-        		TokenTypes.MOD,
-        		TokenTypes.MOD_ASSIGN,
-        		TokenTypes.NOT_EQUAL,
-        		TokenTypes.PLUS,
-        		TokenTypes.PLUS_ASSIGN,
-        		TokenTypes.POST_DEC,
-        		TokenTypes.POST_INC,
-        		TokenTypes.QUESTION,
-        		TokenTypes.STAR,
-        		TokenTypes.STAR_ASSIGN,
-        		TokenTypes.UNARY_MINUS,
-        		TokenTypes.UNARY_PLUS,
-        		TokenTypes.RBRACK,
-        		TokenTypes.RCURLY,
-        		TokenTypes.VARIABLE_DEF,
-        		TokenTypes.METHOD_REF,
-        		TokenTypes.BNOT,
-        		TokenTypes.BOR,
-        		TokenTypes.COLON,
-        		TokenTypes.COMMA,
-        		TokenTypes.GT
-        }; 
-	
-		return tokenArray + tokenArray2;
-	}
- 
+
 }

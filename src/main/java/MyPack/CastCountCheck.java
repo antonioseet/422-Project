@@ -1,10 +1,11 @@
 package MyPack;
  
+
 import com.puppycrawl.tools.checkstyle.api.*;
  
 
 // Number of Comments
-public class LoopStatementCountCheck extends AbstractCheck {
+public class CastCountCheck extends AbstractCheck {
  
     private int counter = 0;
     
@@ -20,7 +21,7 @@ public class LoopStatementCountCheck extends AbstractCheck {
     
     @Override
     public int[] getDefaultTokens() {
-        return loopingTokens();
+        return tokens();
     }
  
     @Override
@@ -31,7 +32,7 @@ public class LoopStatementCountCheck extends AbstractCheck {
 	@Override
 	public int[] getAcceptableTokens() {
 		// Auto-generated method stub
-		return loopingTokens(); 
+		return tokens(); 
 	}
 
 	@Override
@@ -47,15 +48,12 @@ public class LoopStatementCountCheck extends AbstractCheck {
 	
 	// Returns the total number of comments in the program's
 	public String CatchMsg() {
-		return "You've used a total of: " + this.getCounter() + " loop statement(s)";
+		return "You've used a total of: " + this.getCounter() + " typecast(s)";
 	}
 	
-	private int[] loopingTokens() {
+	private int[] tokens() {
 		return new int[] {
-        		TokenTypes.LITERAL_FOR,
-        		TokenTypes.LITERAL_WHILE,
-        		TokenTypes.LITERAL_DO,
-        		TokenTypes.DO_WHILE
+        		TokenTypes.TYPECAST
         		};
 	}
 	

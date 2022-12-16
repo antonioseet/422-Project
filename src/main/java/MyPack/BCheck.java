@@ -2,6 +2,8 @@ package MyPack;
  
 import com.puppycrawl.tools.checkstyle.api.*;
  
+
+// Number of Comments
 public class BCheck extends AbstractCheck {
  
     private int counter = 0;
@@ -46,8 +48,12 @@ public class BCheck extends AbstractCheck {
 	}
 	
 	// Returns the total number of comments in the program's
-	private String CatchMsg() {
-		return "You've used a total of: " + this.counter + " comment(s)";
+	public String CatchMsg() {
+		return "You've used a total of: " + getCounter() + " comment(s)";
+	}
+	
+	public int getCounter() {
+		return this.counter;
 	}
  
 }
