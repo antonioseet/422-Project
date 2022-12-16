@@ -6,9 +6,11 @@ import com.puppycrawl.tools.checkstyle.DetailAstImpl;
 import com.puppycrawl.tools.checkstyle.api.DetailAST;
 
 import MyPack.HalsteadVocabularyCheck;
+import MyPack.CastCountCheck;
 import MyPack.HalsteadArrayMaster;
 
 import static org.mockito.Mockito.spy;
+import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 import static org.mockito.Mockito.doNothing;
 import static org.mockito.Mockito.mock;
@@ -26,11 +28,10 @@ class HalsteadVocabularyTest {
 	@Test
 	void testFinishTree() {
 		HalsteadVocabularyCheck obj = new HalsteadVocabularyCheck();
-		HalsteadVocabularyCheck checkMock = mock(HalsteadVocabularyCheck.class);
-		
-		doNothing().when(checkMock).log(null, expectedString(0));
-		
-		checkMock.finishTree(null);
+		HalsteadVocabularyCheck checkSpy = spy(HalsteadVocabularyCheck.class);
+		doNothing().when(checkSpy).log(null, expectedString(0));
+		checkSpy.finishTree(null);
+		verify(checkSpy).finishTree(null);
 		
 		String expected = expectedString(0);
 		String actual = obj.CatchMsg();

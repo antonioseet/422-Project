@@ -4,9 +4,11 @@ import org.junit.jupiter.api.Test;
 
 import com.puppycrawl.tools.checkstyle.DetailAstImpl;
 
+import MyPack.CastCountCheck;
 import MyPack.LoopStatementCountCheck;
 
 import static org.mockito.Mockito.spy;
+import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 import static org.mockito.Mockito.doNothing;
 import static org.mockito.Mockito.mock;
@@ -24,14 +26,10 @@ class LoopStatementCountCheckTest {
 	@Test
 	void testFinishTree() {
 		LoopStatementCountCheck obj = new LoopStatementCountCheck();
-		LoopStatementCountCheck checkMock = mock(LoopStatementCountCheck.class);
-		
-		doNothing().when(checkMock).log(null, expectedString(0));
-		
-		
-		DetailAstImpl ast = new DetailAstImpl();
-		ast.setType(2);
-		checkMock.finishTree(null);
+		LoopStatementCountCheck checkSpy = spy(LoopStatementCountCheck.class);
+		doNothing().when(checkSpy).log(null, expectedString(0));
+		checkSpy.finishTree(null);
+		verify(checkSpy).finishTree(null);
 		
 		String expected = expectedString(0);
 		String actual = obj.CatchMsg();
@@ -55,7 +53,7 @@ class LoopStatementCountCheckTest {
 	@Test
 	void testGetAcceptableTokens() {
 		LoopStatementCountCheck a = new LoopStatementCountCheck();
-		assertEquals(2, a.getAcceptableTokens().length);
+		assertEquals(4, a.getAcceptableTokens().length);
 	}
 	
 	@Test
