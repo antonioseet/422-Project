@@ -24,7 +24,7 @@ public class ExpressionCount_Black {
 		doNothing().when(checkSpy).log(any(DetailAST.class), any(String.class));
 		String path = "src/main/java/TestSuite/ThreeComments.java";
 		new TreeWalker2(path, checkSpy);
-		assertEquals(2, checkSpy.getCounter());
+		assertEquals(0, checkSpy.getCounter());
 	}
 	
 	public String expectedString(int x) {

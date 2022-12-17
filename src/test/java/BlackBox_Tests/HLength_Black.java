@@ -12,22 +12,34 @@ import org.junit.jupiter.api.Test;
 import com.puppycrawl.tools.checkstyle.api.CheckstyleException;
 import com.puppycrawl.tools.checkstyle.api.DetailAST;
 
-import MyPack.CastCountCheck;
+import MyPack.ACheck;
 import TestSuite.TreeWalker2;
 
-public class TypecastCount_Black {
+public class HLength_Black {
 
+	private int expected = 4;
+	
 	@Test
-	void testThreeComments() throws IOException, CheckstyleException {
+	void testLength() throws IOException, CheckstyleException {
 		
-		CastCountCheck checkSpy = spy(CastCountCheck.class);
+		ACheck checkSpy = spy(ACheck.class);
 		doNothing().when(checkSpy).log(any(DetailAST.class), any(String.class));
 		String path = "src/main/java/TestSuite/ThreeComments.java";
 		new TreeWalker2(path, checkSpy);
-		assertEquals(0, checkSpy.getCounter());
+		assertEquals(expected, checkSpy.getCounter());
+	}
+	
+	@Test
+	void testLengthMsg() throws IOException, CheckstyleException {
+		
+		ACheck checkSpy = spy(ACheck.class);
+		doNothing().when(checkSpy).log(any(DetailAST.class), any(String.class));
+		String path = "src/main/java/TestSuite/ThreeComments.java";
+		new TreeWalker2(path, checkSpy);
+		assertEquals(expectedString(expected), checkSpy.CatchMsg());
 	}
 	
 	public String expectedString(int x) {
-		return "You've used a total of: " + x + " typecast(s)";
+		return "The Halstead Length is: " + x;
 	}
 }
