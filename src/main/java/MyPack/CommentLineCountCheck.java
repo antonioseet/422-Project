@@ -21,8 +21,7 @@ public class CommentLineCountCheck extends AbstractCheck {
     @Override
     public int[] getDefaultTokens() {
         return new int[] {TokenTypes.COMMENT_CONTENT,
-				TokenTypes.BLOCK_COMMENT_BEGIN,
-				TokenTypes.BLOCK_COMMENT_END};
+				TokenTypes.SINGLE_LINE_COMMENT};
     }
  
     @Override
@@ -33,8 +32,8 @@ public class CommentLineCountCheck extends AbstractCheck {
 	@Override
 	public int[] getAcceptableTokens() {
 		// Auto-generated method stub
-		return new int[] {	TokenTypes.SINGLE_LINE_COMMENT,
-							TokenTypes.BLOCK_COMMENT_BEGIN}; 
+		return new int[] {	TokenTypes.COMMENT_CONTENT,
+				TokenTypes.SINGLE_LINE_COMMENT}; 
 	}
 
 	@Override

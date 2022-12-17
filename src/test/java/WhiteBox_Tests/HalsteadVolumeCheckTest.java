@@ -1,3 +1,4 @@
+package WhiteBox_Tests;
 import static org.junit.jupiter.api.Assertions.*;
 
 import org.junit.jupiter.api.Test;
@@ -94,6 +95,17 @@ class HalsteadVolumeCheckTest {
 	void testGetCounter() {
 		HalsteadVolumeCheck obj = new HalsteadVolumeCheck();
 		assertEquals(0, obj.getVolume());
+	}
+	
+	@Test
+	void testGetVolume() {
+		
+	HalsteadVolumeCheck HalVol = new HalsteadVolumeCheck();
+	
+	HalsteadVolumeCheck spy = spy(HalVol);
+	when(spy.getLength()).thenReturn(1);
+	when(spy.usedTokens()).thenReturn(4);
+	assertEquals(2.0, spy.getVolume());
 	}
 	
 	public String expectedString(double x) {

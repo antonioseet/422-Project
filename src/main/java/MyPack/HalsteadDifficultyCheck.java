@@ -85,9 +85,11 @@ public class HalsteadDifficultyCheck extends AbstractCheck {
 			return 0;
 		}
 		
-		double result = (this.uniqueOperators.size() / 2 * this.operandCounter) / this.uniqueOperands.size();
+		double difficulty 	= this.uniqueOperators.size() / 2.0; 
+		difficulty 			*= this.operandCounter;
+		difficulty 			/= this.uniqueOperands.size();
 		
-		return result;
+		return difficulty;
 	}
 
 }

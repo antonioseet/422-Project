@@ -1,11 +1,12 @@
+package WhiteBox_Tests;
 import static org.junit.jupiter.api.Assertions.*;
 
 import org.junit.jupiter.api.Test;
 
 import com.puppycrawl.tools.checkstyle.DetailAstImpl;
 
+import MyPack.BCheck;
 import MyPack.CastCountCheck;
-import MyPack.OperandCountCheck;
 
 import static org.mockito.Mockito.spy;
 import static org.mockito.Mockito.verify;
@@ -13,20 +14,20 @@ import static org.mockito.Mockito.when;
 import static org.mockito.Mockito.doNothing;
 import static org.mockito.Mockito.mock;
 
-class OperandCountCheckTest {
+class CastCountCheckTest {
 
 	
 	@Test
 	void testBeginTree() {
-		OperandCountCheck a = new OperandCountCheck();
+		CastCountCheck a = new CastCountCheck();
 		a.beginTree(null);
 		assertEquals(expectedString(0), a.CatchMsg());
 	}
 	
 	@Test
 	void testFinishTree() {
-		OperandCountCheck obj = new OperandCountCheck();
-		OperandCountCheck checkSpy = spy(OperandCountCheck.class);
+		CastCountCheck obj = new CastCountCheck();
+		CastCountCheck checkSpy = spy(CastCountCheck.class);
 		doNothing().when(checkSpy).log(null, expectedString(0));
 		checkSpy.finishTree(null);
 		verify(checkSpy).finishTree(null);
@@ -39,32 +40,32 @@ class OperandCountCheckTest {
 	
 	@Test
 	void testGetDefaultTokens() {
-		OperandCountCheck a = new OperandCountCheck();
-		assertEquals(6, a.getDefaultTokens().length);
+		CastCountCheck a = new CastCountCheck();
+		assertEquals(1, a.getDefaultTokens().length);
 	}
 	
 	@Test
 	void testVisitToken() {
-		OperandCountCheck a = new OperandCountCheck();
+		CastCountCheck a = new CastCountCheck();
 		a.visitToken(null);
 		assertEquals(expectedString(1), a.CatchMsg());
 	}
 	
 	@Test
 	void testGetAcceptableTokens() {
-		OperandCountCheck a = new OperandCountCheck();
-		assertEquals(6, a.getAcceptableTokens().length);
+		CastCountCheck a = new CastCountCheck();
+		assertEquals(1, a.getAcceptableTokens().length);
 	}
 	
 	@Test
 	void testGetRequiredTokens() {
-		OperandCountCheck a = new OperandCountCheck();
+		CastCountCheck a = new CastCountCheck();
 		assertEquals(a.getRequiredTokens().length, 0);
 	}
 	
 	@Test
 	void testIsCommentNodesRequired() {
-		OperandCountCheck a = new OperandCountCheck();
+		CastCountCheck a = new CastCountCheck();
 		assertTrue(a.isCommentNodesRequired());
 	}
 
@@ -72,9 +73,9 @@ class OperandCountCheckTest {
 	@Test
 	void testCatchMsg() {
 		
-		OperandCountCheck HalLength = new OperandCountCheck();
+		CastCountCheck HalLength = new CastCountCheck();
 		
-		OperandCountCheck spy = spy(HalLength);
+		CastCountCheck spy = spy(HalLength);
 		when(spy.getCounter()).thenReturn(5);
 		String expected = expectedString(5);
 		String actual = spy.CatchMsg();
@@ -85,12 +86,12 @@ class OperandCountCheckTest {
 	
 	@Test
 	void testGetCounter() {
-		OperandCountCheck obj = new OperandCountCheck();
+		CastCountCheck obj = new CastCountCheck();
 		assertEquals(0, obj.getCounter());
 	}
 	
 	public String expectedString(int x) {
-		return "Operand Count: " + x;
+		return "You've used a total of: " + x + " typecast(s)";
 	}
 
 }

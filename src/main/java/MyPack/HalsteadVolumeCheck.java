@@ -64,7 +64,7 @@ public class HalsteadVolumeCheck extends AbstractCheck {
 		return getLength() * (Math.log(usedTokens()) / Math.log(2));
 	}
 	
-	private int getLength() {
+	public int getLength() {
 		return this.lengthCounter;
 	}
 	

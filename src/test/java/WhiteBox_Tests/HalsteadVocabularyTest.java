@@ -1,10 +1,13 @@
+package WhiteBox_Tests;
 import static org.junit.jupiter.api.Assertions.*;
 
 import org.junit.jupiter.api.Test;
 
 import com.puppycrawl.tools.checkstyle.DetailAstImpl;
+import com.puppycrawl.tools.checkstyle.api.DetailAST;
 
-import MyPack.BCheck;
+import MyPack.HalsteadVocabularyCheck;
+import MyPack.CastCountCheck;
 import MyPack.HalsteadArrayMaster;
 
 import static org.mockito.Mockito.spy;
@@ -13,20 +16,20 @@ import static org.mockito.Mockito.when;
 import static org.mockito.Mockito.doNothing;
 import static org.mockito.Mockito.mock;
 
-class NumberOfCommentsCheckTest {
+class HalsteadVocabularyTest {
 
 	
 	@Test
 	void testBeginTree() {
-		BCheck a = new BCheck();
+		HalsteadVocabularyCheck a = new HalsteadVocabularyCheck();
 		a.beginTree(null);
 		assertEquals(expectedString(0), a.CatchMsg());
 	}
 	
 	@Test
 	void testFinishTree() {
-		BCheck obj = new BCheck();
-		BCheck checkSpy = spy(BCheck.class);
+		HalsteadVocabularyCheck obj = new HalsteadVocabularyCheck();
+		HalsteadVocabularyCheck checkSpy = spy(HalsteadVocabularyCheck.class);
 		doNothing().when(checkSpy).log(null, expectedString(0));
 		checkSpy.finishTree(null);
 		verify(checkSpy).finishTree(null);
@@ -39,32 +42,34 @@ class NumberOfCommentsCheckTest {
 	
 	@Test
 	void testGetDefaultTokens() {
-		BCheck a = new BCheck();
-		assertEquals(2, a.getDefaultTokens().length);
+		HalsteadVocabularyCheck a = new HalsteadVocabularyCheck();
+		HalsteadArrayMaster tokens = new HalsteadArrayMaster();
+		assertEquals(a.getDefaultTokens().length, tokens.getMasterList().length);
 	}
 	
 	@Test
 	void testVisitToken() {
-		BCheck a = new BCheck();
-		a.visitToken(null);
-		assertEquals(expectedString(1), a.CatchMsg());
+		HalsteadVocabularyCheck obj = new HalsteadVocabularyCheck();
+		obj.visitToken(new DetailAstImpl());
+		assertEquals(expectedString(1), obj.CatchMsg());
 	}
 	
 	@Test
 	void testGetAcceptableTokens() {
-		BCheck a = new BCheck();
-		assertEquals(2, a.getAcceptableTokens().length);
+		HalsteadVocabularyCheck a = new HalsteadVocabularyCheck();
+		HalsteadArrayMaster tokens = new HalsteadArrayMaster();
+		assertEquals(a.getAcceptableTokens().length, tokens.getMasterList().length);
 	}
 	
 	@Test
 	void testGetRequiredTokens() {
-		BCheck a = new BCheck();
+		HalsteadVocabularyCheck a = new HalsteadVocabularyCheck();
 		assertEquals(a.getRequiredTokens().length, 0);
 	}
 	
 	@Test
 	void testIsCommentNodesRequired() {
-		BCheck a = new BCheck();
+		HalsteadVocabularyCheck a = new HalsteadVocabularyCheck();
 		assertTrue(a.isCommentNodesRequired());
 	}
 
@@ -72,9 +77,9 @@ class NumberOfCommentsCheckTest {
 	@Test
 	void testCatchMsg() {
 		
-		BCheck HalLength = new BCheck();
+		HalsteadVocabularyCheck HalLength = new HalsteadVocabularyCheck();
 		
-		BCheck spy = spy(HalLength);
+		HalsteadVocabularyCheck spy = spy(HalLength);
 		when(spy.getCounter()).thenReturn(5);
 		String expected = expectedString(5);
 		String actual = spy.CatchMsg();
@@ -85,12 +90,12 @@ class NumberOfCommentsCheckTest {
 	
 	@Test
 	void testGetCounter() {
-		BCheck obj = new BCheck();
+		HalsteadVocabularyCheck obj = new HalsteadVocabularyCheck();
 		assertEquals(0, obj.getCounter());
 	}
 	
 	public String expectedString(int x) {
-		return "You've used a total of: " + x + " comment(s)";
+		return "The Halstead Vocabulary is: " + x;
 	}
 
 }
